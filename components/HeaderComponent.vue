@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-      <div class="logo">
+      <div @click="gotoHome" class="logo">
         <div class="logo-icon"></div>
         <h1 class="logo-text">devlinks</h1>
       </div>
@@ -42,6 +42,10 @@
 
   function gotoPreview(){
     router.push('/preview')
+  }  
+
+  function gotoHome(){
+    router.push('/')
   }
   </script>
   
@@ -56,6 +60,7 @@
   .logo {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   
   .logo-icon {
