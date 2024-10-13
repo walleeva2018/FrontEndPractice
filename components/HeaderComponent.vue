@@ -1,10 +1,17 @@
 <template>
+    <ClientOnly>
     <header class="header">
-      <div @click="gotoHome" class="logo">
+      <button v-if="route.fullPath?.includes('preview')" @click="gotoHome" class="preview-button">
+        Edit 
+      </button>
+      <div v-else  @click="gotoHome" class="logo">
         <div class="logo-icon"></div>
         <h1 class="logo-text">devlinks</h1>
       </div>
-      <nav class="nav">
+      <div class="preview"> 
+
+     
+      <nav v-if="!route.fullPath?.includes('preview')" class="nav">
         <button class="nav-button" :class="{ active: activeTab === 'links' }" @click="setActiveTab('links')">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -18,11 +25,17 @@
           <span class="nav-text">Profile Details</span>
         </button>
       </nav>
+    </div>
      
-      <button @click="gotoPreview" class="preview-button">
+      <button v-if="route.fullPath?.includes('preview')" @click="gotoPreview" class="preview-button">
+        Share Link
+      </button>
+
+      <button v-else @click="gotoPreview" class="preview-button">
         Preview
       </button>
     </header>
+  </ClientOnly>
   </template>
   
   <script setup lang="ts">
@@ -34,6 +47,7 @@
   
   const activeTab = ref<'links' | 'profile'>('links');
   const router = useRouter()
+  const route = useRoute()
   
   const setActiveTab = (tab: 'links' | 'profile') => {
     myStore.updateTab(tab);
@@ -50,10 +64,12 @@
   </script>
   
   <style scoped>
+
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
     padding: 1rem;
   }
   
@@ -78,6 +94,7 @@
   
   .nav {
     display: flex;
+    
     gap: 1rem;
   }
   

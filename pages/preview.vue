@@ -61,8 +61,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   
-    background-color: #f3f4f6;
+
     padding: 1rem;
   }
   
